@@ -4,7 +4,7 @@ const [_, ...q] = fs.readFileSync('/dev/stdin').toString().split('\n');
 let table = []
 
 q.forEach((query) => {
-    const [t,n,v] = query.split(" ")
+    const [t,n,v] = query.split(" ");
 
     if (t === "init") {
         table = [];
@@ -17,8 +17,7 @@ q.forEach((query) => {
         const index = table.findIndex(v => v.name === n);
         if (index === -1) return console.log("0");
         console.log(table[index].value);
-        table = table.splice(index, 1);
-        
+        table = table.filter((_,i)=> i !== index);
     } else if (t === "rank") {
         if (table.length < n) return console.log("None");
         console.log(table.sort((a,b) => a.value - b.value).at(n - 1).name);
